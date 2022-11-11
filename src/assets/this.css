@@ -1,0 +1,74 @@
+.left-col {
+  float: left;
+  width: 3%;
+  height: 100vh;
+  border-right: solid lightgrey 1px;
+}
+
+.right-col {
+  float: right;
+  width: 97%;
+  padding: 0;
+  margin: 0;
+}
+
+.header{
+  padding: 5px 10px;
+  background-color: whitesmoke;
+}
+
+.logo {
+  font-size: 20px;
+  color: cornflowerblue;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.header div {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.header input {
+  width: 100%;
+  font-family: monospace;
+}
+
+.sidebar {
+  margin: 5px;
+  text-align: center;
+}
+.sidebar div {
+  background-color: white;
+  padding: 5px;
+}
+.bottom-sidebar {
+  margin-top: 10px;
+}
+.bottom-sidebar div {
+  margin: 15px 0;
+  padding: 10px;
+}
+
+.sidebar i {
+  font-size: 20px;
+}
+
+.upperbody {
+  margin: 20px 10px;
+}
+
+.content {
+  margin: 20px 30px;
+}
+
+.textfield {
+  margin-top: 20px;
+  width: 100%; 
+  padding: 10px; 
+  height: 80vh; 
+  border-radius: 7px;
+  background-color: white;
+  resize: none;
+}
