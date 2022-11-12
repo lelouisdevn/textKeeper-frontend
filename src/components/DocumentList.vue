@@ -4,12 +4,8 @@ export default {
     props: {
         documents: { type: Array, default: [] },
         itemIndex: { type: Number, default: -1 },
+        extension: { type: Array, default: [] },
     },
-    data() {
-        return {
-            extension: [],
-        }
-    }, 
     emits: ["update:itemIndex"],
     methods: {
         updateItemIndex(index) {
@@ -17,15 +13,7 @@ export default {
         },
     },
     created() {
-        this.documents.forEach(element => {
-            if (element.filename.indexOf(".") > 0) {
-                let ext = element.filename.substring(element.filename.indexOf("."))
-                this.extension.push(ext)
-            }else {
-                this.extension.push("?");
-            }
-            console.log(this.extension)
-        });
+        console.log(this.extension)
     }
 }
 
@@ -43,7 +31,7 @@ export default {
         <div></div>
         <div class="card text-white mb-3" style="background-color: whitesmoke">
             <div class="card-body" style="height: 160px; font-size: 30px; color: black; text-align: center; display: flex; justify-content: center; align-items: center;">
-            <span>{{ this.extension[index] }}</span>
+            <span>{{ text.extension }}</span>
             </div>
         </div>
         <div style="text-align: center;">

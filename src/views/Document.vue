@@ -39,6 +39,9 @@ export default {
         },
         async updateDocument(data) {
             try {
+                let data1 = data
+                let ext = data1.filename.substring(data.filename.indexOf("."))
+                data["extension"] = ext;
                 await DocumentService.update(this.document._id, data);
                 this.message = "Saved";
             } catch (error) {

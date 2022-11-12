@@ -1,8 +1,12 @@
 <template>
 
     <div>
-        <AddButton></AddButton>
-        <span v-if="itemIndex >= 0">
+        <span>
+            <AddButton></AddButton>
+            <span class="btn btn-success">Upload your file</span>
+        </span>
+
+        <span v-if="itemIndex >= 0" style="margin-left: 10px;">
             <router-link :to="{
                 name: 'document.edit',
                 params: { id: this.documents[itemIndex]._id },
@@ -20,6 +24,9 @@
         <span v-if="itemIndex >= 0" style="margin-left: 10px;">
             <input type="text" v-model="this.documents[itemIndex].filename" style="border: none;" @keydown="rename">
         </span>
+
+        <InputSearch v-model="searchText"></InputSearch>
+
     </div>
 
     <div style="margin: 20px 0;">
@@ -30,36 +37,46 @@
 </template>
 
 <script>
-
+import InputSearch from "@/components/InputSearch.vue"
 import DocumentList from "@/components/DocumentList.vue";
 import AddButton from "@/components/AddButton.vue";
 import DocumentService from "@/services/doc.service"
-import EditForm from "../components/EditForm.vue";
+import EditForm from "@/components/EditForm.vue";
+
+
 export default {
     components: {
         DocumentList,
         AddButton,
-        EditForm
+        EditForm,
+        InputSearch
     },
+    props: {
+        // searchText: "",
+    },
+    emits: ["update:query"],
     data() {
         return {
             documents: [],
             itemIndex: -1,
-            searchText: "",
+            searchText: ""
         };
+    },
+    watch: {
+        searchText() {
+            this.itemIndex = -1;
+        }
     },
     computed: {
         filterDocuments() {
-            return this.documents;
+            if (!this.searchText) return this.documents;
+            return this.documents.filter((_doc, index) =>
+                this.documents[index].filename.toLowerCase().includes(this.searchText))
         },
     },
     methods: {
         async getAllDocuments() {
-            try {
-                this.documents = await DocumentService.getAll();
-            } catch (error) {
-                console.log(error);
-            }
+            this.documents = await DocumentService.getAll();
         },
         async deleteDocument() {
             try {
@@ -73,15 +90,25 @@ export default {
         async rename(e) {
             if (e.which == 13) {
                 $("input").blur()
-                let data = {"filename": this.documents[this.itemIndex].filename, }
+                let name = e.target.value;
+                let data = {};
+                if (name.indexOf(".") > 0) {
+                    data = { "filename": this.documents[this.itemIndex].filename, "extension": name.substring(name.indexOf(".")) }
+                } else {
+                    data = { "filename": this.documents[this.itemIndex].filename, "extension": "?" }
+                }
+
                 try {
                     await DocumentService.update(this.documents[this.itemIndex]._id, data);
+
                     this.message = "Saved";
+
+                    this.getAllDocuments();
                 } catch (error) {
                     console.log(error)
                 }
             }
-        }
+        },
     },
     mounted() {
         this.getAllDocuments();

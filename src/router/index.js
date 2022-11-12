@@ -26,7 +26,7 @@ const routes = [
     {
         path: "/delete/:id",
         name: "document.delete",
-    }
+    },
 ];
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

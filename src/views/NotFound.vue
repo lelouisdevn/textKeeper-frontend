@@ -1,8 +1,8 @@
 <template>
     <div class="page">
-        <p>
+        <h5>
             This page can't be reached. Return to 
             <router-link to="/">Home.</router-link>
-        </p>
+        </h5>
     </div>
 </template>

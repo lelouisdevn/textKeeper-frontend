@@ -1,8 +1,3 @@
-<script>
-export default {
-
-}
-</script>
 <template>
   <div class="fluid-container" id="app">
     <div class="left-col">
@@ -42,15 +37,20 @@ export default {
           </router-link>
         </div>
         <div class="col-6">
-          <input type="text" name="" value="" placeholder="Find your document here...">
+          
         </div>
         <div style="text-align: right;" class="col-3">
           <i class="fas fa-bars"></i>
         </div>
       </div>
       <div class="content">
-        <router-view />
+        <router-view/>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+}
+</script>
