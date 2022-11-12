@@ -8,3 +8,11 @@
         </router-link>
     </span>
 </template>
+
+<script>
+    export default {
+        props: {
+            document: { type: Object, default: null},
+        }
+    }
+</script>

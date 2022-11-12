@@ -1,13 +1,8 @@
 <template>
     <div>
         <div>
-            <EditForm 
-            :document="document"
-            :message="message"
-            @submit:document="updateDocument"
-            @update:message="updateMessage"
-            
-            >
+            <EditForm :document="document" :message="message" @submit:document="updateDocument"
+                @update:message="updateMessage">
             </EditForm>
         </div>
     </div>
@@ -25,22 +20,21 @@ export default {
     },
     data() {
         return {
-            document: null,
+            document: { type: Object, default: null },
             message: "",
         }
     },
     methods: {
-        async getDocument(id) {
-            try {
-                this.document = await DocumentService.get(id);
-            }catch (error) {
-                console.log(error);
-            }
-        },
         async updateDocument(data) {
             try {
-                await DocumentService.update(this.document._id, data);
+                let doc = await DocumentService.create(data);
+
                 this.message = "Saved";
+
+                this.$router.push({
+                    name: "document.edit",
+                    params: { id: doc._id }
+                })
             } catch (error) {
                 console.log(error)
             }
@@ -50,7 +44,7 @@ export default {
         }
     },
     created() {
-        this.getDocument(this.id);
+        this.document.filename = "New Document.txt";
     }
 }
 </script>

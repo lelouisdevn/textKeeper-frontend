@@ -5,13 +5,31 @@ export default {
         documents: { type: Array, default: [] },
         itemIndex: { type: Number, default: -1 },
     },
+    data() {
+        return {
+            extension: [],
+        }
+    }, 
     emits: ["update:itemIndex"],
     methods: {
         updateItemIndex(index) {
             this.$emit("update:itemIndex", index);
-        }
+        },
+    },
+    created() {
+        this.documents.forEach(element => {
+            if (element.filename.indexOf(".") > 0) {
+                let ext = element.filename.substring(element.filename.indexOf("."))
+                this.extension.push(ext)
+            }else {
+                this.extension.push("?");
+            }
+            console.log(this.extension)
+        });
     }
 }
+
+
 </script>
 
 <template>
@@ -19,12 +37,13 @@ export default {
         v-for="(text, index) in documents"
         :key="text._id" 
         class="elements"
+        
         @click="updateItemIndex(index)"
         style="width: 135px; display: inline-block; margin: 10px; cursor: pointer;">
         <div></div>
         <div class="card text-white mb-3" style="background-color: whitesmoke">
             <div class="card-body" style="height: 160px; font-size: 30px; color: black; text-align: center; display: flex; justify-content: center; align-items: center;">
-            <span>CSS</span>
+            <span>{{ this.extension[index] }}</span>
             </div>
         </div>
         <div style="text-align: center;">

@@ -12,7 +12,7 @@ class DocumentService {
     }
 
     async create(data) {
-        return (await this.api.post("/")).data;
+        return (await this.api.post("/", data)).data;
     }
 
     async update(id, data) {
