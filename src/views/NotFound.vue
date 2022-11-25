@@ -1,8 +1,11 @@
 <template>
     <div class="page">
-        <h5>
-            This page can't be reached. Return to 
+        <div style="font-size: 50px;">
+            <i class="fas fa-exclamation-triangle"></i> Page not found
+        </div>
+        <p>
+            This page can't be reached. Return
             <router-link to="/">Home.</router-link>
-        </h5>
+        </p>
     </div>
 </template>

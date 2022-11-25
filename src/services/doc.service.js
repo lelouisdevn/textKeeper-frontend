@@ -22,6 +22,18 @@ class DocumentService {
     async delete(id) {
         return (await this.api.delete(`/${id}`)).data
     }
+
+    async moveToTrash(data) {
+        return (await this.api.post('/trash-bin', data)).data;
+    }
+
+    async restore(id) {   
+        return (await this.api.delete(`/trash-bin/${id}`)).data;
+    }
+
+    async getDeletedFile() {
+        return (await this.api.get('/trash-bin')).data;
+    }
 }
 
 export default new DocumentService();

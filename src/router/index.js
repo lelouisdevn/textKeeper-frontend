@@ -27,6 +27,11 @@ const routes = [
         path: "/delete/:id",
         name: "document.delete",
     },
+    {
+        name: "document.trashbin",
+        path: "/trashbin",
+        component: () => import("@/views/Trashbin.vue")
+    }
 ];
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

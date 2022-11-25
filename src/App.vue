@@ -18,10 +18,15 @@
             <i class="fa fa-edit"></i>
           </div>
           <div class="">
+            <i class="fa fa-star"></i>
+          </div>
+          <div class="">
             <i class="fa fa-search"></i>
           </div>
           <div class="">
-            <i class="fa fa-trash"></i>
+            <router-link to="/trashbin" style="color: black;">
+              <i class="fa fa-trash"></i>
+            </router-link>
           </div>
           <div class="">
             <i class="fa fa-cog"></i>

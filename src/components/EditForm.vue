@@ -15,8 +15,16 @@
                 <i class="fas fa-close"></i>
             </router-link>
         </span>
+
+        <select name="" id="" v-model="selected" required @change="updateFont" style="float: right; margin: 5px 10px; width: 20%;" >
+            <option value="" selected="selected">Default</option>
+            <option value="0" >Monospace</option>
+            <option value="1" >Arial</option>
+            <option value="2" >Ubuntu</option>
+            <option value="3" >roboto</option>
+        </select>
     </div>
-    <textarea class="textfield" name="" id="" cols="30" rows="10"
+    <textarea class="textfield" name="" id="" cols="30" rows="10" :style="{fontFamily: this.font}"
         v-model="localDocument.content">{{ document.content }}</textarea>
 
 </template>
@@ -31,15 +39,21 @@ export default {
     data() {
         return {
             localDocument: this.document,
-            localMessage: this.message
+            localMessage: this.message,
+            selected: "",
+            sizeSelected: "",
+            font: this.document.fontStyle,
+            size: 15,
         };
     },
     methods: {
+        updateFont() {
+            const fonts = ["monospace", "arial", "ubuntu", "roboto"]
+            this.font = fonts[this.selected];
+        },
         updateDocument() {
-            // if (this.localDocument.filename == "") {
-            //     this.localDocument.filename = "New Document.txt";
-            // }
             this.localMessage = "Saving..."
+            this.localDocument["fontStyle"] = this.font;
             this.$emit("update:message", this.localMessage)
             setTimeout(() => {
                 this.$emit("submit:document", this.localDocument)
@@ -47,7 +61,6 @@ export default {
         },
         updateFilename(e) {
             if (e.which == 13){
-                
                 this.updateDocument();
                 $("input").blur()
             }
@@ -55,3 +68,4 @@ export default {
     }
 }
 </script>
+
