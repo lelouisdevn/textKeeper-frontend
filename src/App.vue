@@ -7,6 +7,11 @@
         </div>
         <div class="bottom-sidebar">
           <div class="">
+            <router-link to="/" style="color: black;">
+              <i class="fa fa-home"></i>
+            </router-link>
+          </div>
+          <div class="">
             <i class="fa fa-user"></i>
           </div>
           <div class="">

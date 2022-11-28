@@ -6,7 +6,6 @@
             :message="message"
             @submit:document="updateDocument"
             @update:message="updateMessage"
-            
             >
             </EditForm>
         </div>
@@ -41,7 +40,12 @@ export default {
             try {
                 let data1 = data
                 let ext = data1.filename.substring(data.filename.indexOf("."))
-                data["extension"] = ext;
+                if (ext) {
+                    data["extension"] = ext;
+                }else {
+                    data["extension"] = "?";
+                }
+                
                 await DocumentService.update(this.document._id, data);
                 this.message = "Saved";
             } catch (error) {

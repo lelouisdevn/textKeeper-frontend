@@ -1,7 +1,10 @@
 <template>
     <div>
         <div>
-            <EditForm :document="document" :message="message" @submit:document="updateDocument"
+            <EditForm 
+                :document="document" 
+                :message="message" 
+                @submit:document="updateDocument"
                 @update:message="updateMessage">
             </EditForm>
         </div>
@@ -29,8 +32,8 @@ export default {
             try {
                 let data1 = data
                 let ext = data1.filename.substring(data.filename.indexOf("."))
+                
                 data["extension"] = ext;
-                console.log(data)
                 let doc = await DocumentService.create(data);
 
                 this.message = "Saved";

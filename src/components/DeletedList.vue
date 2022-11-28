@@ -1,43 +1,18 @@
 <script>
-import DocumentService from "@/services/doc.service"
+// import DocumentService from "@/services/doc.service"
 export default {
     props: {
-        deletedList: { type: Array, default: [] },
+        finalList: { type: Array, default: [] },
+        itemIndex: { type: Number, default: -1},
     },
-    data() {
-        return {
-            documents: [],
-            finalList: [],
-        }
-    },
+    emits: ["update:itemIndex"],
     methods: {
-        async getDeletedFiles() {
-            this.documents = await DocumentService.getAll()
-            for (let index = 0; index < this.deletedList.length; index++) {
-                let documentId = this.deletedList[index].documentID;
-                for (let j = 0; j < this.documents.length; j++) {
-                    if (this.documents[j]._id === documentId) {
-                        this.finalList.push(this.documents[j]);
-                    }
-                }
-            }
-        },
-        async restore(index) {
-            let data = {}
-            data["status"] = "okay"
-            
-            await DocumentService.update(this.finalList[index]._id, data)
-
-            this.deletedList.forEach(element => {
-                if (element.documentID == this.finalList[index]._id) {
-                    DocumentService.restore(this.deletedList[index]._id)
-                }
-            });
+        restore(index) {
+            this.$emit("update:itemIndex", index)
         }
     },
     created() {
-        this.finalList = []
-        this.getDeletedFiles();
+
     }
 }
 </script>
@@ -45,13 +20,17 @@ export default {
     <div style="margin-top: 30px;">
         <h4>Deleted Files</h4>
     </div>
-    <div v-for="(text, index) in this.finalList" style="margin: 20px 0 0 0;">
+    <div v-for="(text, index) in this.finalList" style="margin: 10px 7px; width: auto; display: inline-block;">
         <div
-            style="width: 100%; border: solid black 1px; border-radius: 7px; padding: 10px; background-color: whitesmoke; color: black">
+            style="width: 100%; border: solid black 1px; border-radius: 7px; padding: 10px; background-color: whitesmoke;">
             <router-link :to="{
                 name: 'document.edit',
                 params: { id: this.finalList[index]._id }
-            }">{{ this.finalList[index].filename }}</router-link>
+            }">
+                <span style="color: black;">
+                    {{ this.finalList[index].filename }}
+                </span>
+            </router-link>
 
             <span style="float: right; margin: 0 10px; color: black;" @click="restore(index)">
                 <i class="fas fa-refresh"></i>

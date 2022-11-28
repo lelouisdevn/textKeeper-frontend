@@ -24,9 +24,9 @@
             <option value="3" >roboto</option>
         </select>
     </div>
+    
     <textarea class="textfield" name="" id="" cols="30" rows="10" :style="{fontFamily: this.font}"
         v-model="localDocument.content">{{ document.content }}</textarea>
-
 </template>
 
 <script>

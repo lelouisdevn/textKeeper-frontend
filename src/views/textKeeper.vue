@@ -32,11 +32,13 @@
         </span>
 
         <InputSearch v-model="searchText"></InputSearch>
-
     </div>
-
+    <hr>
     <div style="margin: 20px 0;">
         <h4>Your documents</h4>
+        <div v-if="filterDocuments.length == 0">
+            No documents found!
+        </div>
         <DocumentList v-if="filterDocuments.length > 0" :documents="filterDocuments" v-model:itemIndex="itemIndex" />
     </div>
 
